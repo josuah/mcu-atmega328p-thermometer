@@ -1,0 +1,6 @@
+*.asm
+*.elf
+*.hex
+*.map
+*.o
+*.a
