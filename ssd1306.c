@@ -1,4 +1,3 @@
-#include <stddef.h>
 #include <stdint.h>
 #include <string.h>
 #include <assert.h>
@@ -32,8 +31,8 @@
 #define SET_DISP_ON 0xAF
 
 #define SET_CLOCK 0xD5
-#define CLOCK_DIVIDE 0<<0
-#define CLOCK_FREQ 15<<4
+#define CLOCK_DIVIDE (0<<0)
+#define CLOCK_FREQ (15<<4)
 
 #define SET_COM_PIN 0xDA
 #define COM_PIN_ALT_NO_REMAP 0x02
@@ -47,7 +46,7 @@
 #define SET_OFFSET 0xD3
 #define SET_MULTIPLEX 0xA8
 
-static uint8_t pixbuf[1 + SSD1306_ROWS/8 * SSD1306_COLS];
+uint8_t pixbuf[1 + SSD1306_ROWS/8 * SSD1306_COLS];
 
 int
 ssd1306_init(void)
@@ -94,17 +93,18 @@ ssd1306_clear(void)
 }
 
 /*
- * scanning is configured by ssd1306_init() to go this way:
+ * scanning is configured by init() to go this way:
  *
- *	------ COLS ------		Seg: (ie) from 008 to 00F
- *	000 008 010 ... 3F0	|	Row: (ie) from 400 to 7FF
- *	 : / : / :  ...  : }Seg	|
- *	007 00F 017 ... 3FF	|
- *	 .---------------'	|
- *	400 408 410 ... 7F0	|ROWS
- *	 : / : / :  ...  :	|
- *	407 40F 417 ... 7FF	|
- *	 :   :   :   :   :	:
+ *	<------COLS------->		Seg: 8bit vertical line
+ *	000 008 010 ... 3F0     ^	Row: 8bit high, COLS wide
+ *	 : / : / :  ...  : }Seg |
+ *	007 00F 017 ... 3FF     |
+ *	 ,- - - - - - - -'	|
+ *	400 408 410 ... 7F0     ROWS
+ *	 : / : / :  ...  :      |
+ *	407 40F 417 ... 7FF     |
+ *	 ,- - - - - - - -'	|
+ *	 :   :   :  ...  :      :
  */
 void
 ssd1306_point(uint16_t x, uint16_t y)

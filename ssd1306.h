@@ -18,8 +18,8 @@
 #define SSD1306_I2C_ADDR 0x3C
 #endif
 
-/* to set to a function that writes `buf` of size `sz` to an I2C bus at `addr` */
-int ssd1306_i2c_write(uint8_t addr, uint8_t const *buf, size_t sz);
+/* to set to a function writing `buf` of size `sz` to `addr` over I2C */
+extern int ssd1306_i2c_write(uint8_t addr, uint8_t const *buf, size_t sz);
 
 /* send control commands to the screen to make it ready to draw */
 int ssd1306_init(void);
